@@ -1,0 +1,38 @@
+.section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 200px;
+    border: green 1px solid;
+    margin: 15px;
+    background: linear-gradient(45deg,rgb(233, 233, 75)rgb(54, 217, 228)n);
+    position: relative;
+
+}
+.secTitle{
+    margin: 10px;
+}
+.secDesc{
+    margin: 10px;
+}
+.secDeleteBtn{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    border: none;
+    font-size: 24px;
+    background: transparent;
+    transition: 0.2s;
+}
+.secDeleteBtn:hover{
+    color: red;
+    transform: scale(1.5,1.5);
+
+}
+
+.task{
+
+
+
+}

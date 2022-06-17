@@ -1,0 +1,16 @@
+.App {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(45deg,green,rgb(42, 221, 241));
+}
+.container{
+    display: flex;
+    width: 90vw;
+    border: 2px solid red;
+
+}
+.AddSection{
+    position: absolute;
+    
+}

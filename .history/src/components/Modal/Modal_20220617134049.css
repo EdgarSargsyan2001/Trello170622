@@ -1,0 +1,11 @@
+.modal{
+    
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: ;
+    background-color: rgba(0, 0, 0, 0.499);
+    position: absolute;
+    top: 0;
+
+}

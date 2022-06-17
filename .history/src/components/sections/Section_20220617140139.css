@@ -1,0 +1,23 @@
+.section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 200px;
+    border: green 1px solid;
+    margin: 15px;
+    position: relative;
+
+}
+
+.secTitle{
+
+}
+
+.secDesc{
+
+}
+.secDeleteBtn{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
