@@ -2,53 +2,65 @@
 import { useEffect, useState } from 'react'
 import './Modal.css'
 
-function Modal({setRender,name,setOpenModal,sec}){
+function Modal({setOpenModal,setSectionData,modalType}){
 
 
-    const [title,setTitle] = useState('title')
-    const [desc,setDesc] = useState('desc')
-    const [AllObj,setAllObj] = useState(JSON.parse(localStorage.getItem("AllObj")))
-   
+    const idData = localStorage.getItem('id')
+    const [id,setId] = useState(idData?JSON.parse(idData) : 1 )
+    const [title,setTitle] = useState('')
+    const [desc,setDesc] = useState('enything')
+
+//===== useEffects ===========================
+
+    useEffect(()=>{
+      localStorage.setItem('id',JSON.stringify(id))
+  
+    },[id])
+
+
+//===== function ====================
     const AddSecLocalSt = ()=>{
 
-        let obj = {
-            title,
+        const SecId = id + 100
+        const secObj = {
+            title:title? title : SecId,
             desc,
             tasks:[],
-            id:Math.random()
-            
+            id:SecId
         }
-        setAllObj({...AllObj,section:[...AllObj.section,obj]})
-        setRender(Math.random())
-        
+        setId(prev => prev + 1)
+        setSectionData(prev => [...prev,secObj])
+        setTimeout(()=>setOpenModal(false),0)
     }
 
 
     const AddTaskLocalSt = ()=>{
-        let obj = {
-            title,
+
+        const taskObj = {
+            title:title ? title : id,
             desc,
-            id:Math.random()
-            
+            id:id
         }
-        let newSec = AllObj.section.map((el)=>{
-            if(el.id === sec.id) return {...el,tasks:[...el.tasks,obj]}
-            return el
-        })
-        
-        localStorage.setItem('AllObj',JSON.stringify({...AllObj,section:newSec}))
-        setRender(Math.random())
-        setOpenModal(false)
+
+        setId(prev => prev + 1)
+        setSectionData(prev =>  prev.map((sec,i)=>{
+                if(i === 0) return {...sec,tasks:[...sec.tasks,taskObj]}
+                return sec
+            })
+
+        )
+        setTimeout(()=>setOpenModal(false),0)
 
     }
 
-    useEffect(()=>{
-        localStorage.setItem('AllObj',JSON.stringify(AllObj))
-
-    },[AllObj])
+ 
 
     return(
         <div className="modal">
+            <span className='modalSpan'></span>
+            <span className='modalSpan'></span>
+            <span className='modalSpan'></span>
+            <span className='modalSpan'></span>
 
                 <input 
                     type='text' 
@@ -64,7 +76,10 @@ function Modal({setRender,name,setOpenModal,sec}){
                     onChange={(e)=>setDesc(e.target.value)}
                 />
                     
-                <button className='modalBtn' onClick={name?AddTaskLocalSt:AddSecLocalSt}>Add</button>
+                <button 
+                    className='modalBtn' 
+                    onClick = {modalType ==='task'?AddTaskLocalSt:AddSecLocalSt}
+                >Add</button>
         </div>
     )
 

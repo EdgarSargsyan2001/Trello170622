@@ -1,48 +1,52 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import './App.css';
 import Modal from './components/Modal/Modal';
 import Section from './components/sections/Section';
 
-document.addEventListener("dragstart", function(event) {
-  event.dataTransfer.setData("Text", event.target.id);
-});
+// document.addEventListener("dragstart", function(event) {
+//   event.dataTransfer.setData("Text", event.target.id);
+// });
 
-document.addEventListener("dragover", function(event) {
-  event.preventDefault();
-});
-document.addEventListener("drop", function(event) {
-  event.preventDefault();
+// document.addEventListener("dragover", function(event) {
+//   event.preventDefault();
+// });
+// document.addEventListener("drop", function(event) {
+//   event.preventDefault();
 
-  if ( event.target.className === "section") {
-    let data = event.dataTransfer.getData("Text");
-    event.target.appendChild(document.getElementById(data));
-  }
+//   if ( event.target.className === "section") {
+//     let data = event.dataTransfer.getData("Text");
+//     event.target.appendChild(document.getElementById(data));
+//   }
 
 
-});
+// });
 
 function App() {
 
   
-const [openModalSec,seOpenModalSec] = useState(false)
-const [secS,setSecS] = useState([])
-const [render,setRender] = useState('')
-
+  const localData = localStorage.getItem('AllObj')
+  const [sectionData,setSectionData] = useState(localData ? JSON.parse(localData) : [] )
+  const [openModal,setOpenModal] = useState(false)
+  const [modalType,setModalType] = useState('section')
+  
+  
+  //useEffects ==================================
+  
   useEffect(()=>{
-    if(!localStorage.getItem("AllObj"))
-    localStorage.setItem('AllObj',JSON.stringify({id:1,section:[]}))
+    localStorage.setItem('AllObj',JSON.stringify(sectionData))
+    
+  },[sectionData])
+  
 
 
-  },[])
+  //function ===================================
 
-  useEffect(()=>{
-    let AllObj = JSON.parse(localStorage.getItem('AllObj'))
-    setSecS(AllObj.section)
-    seOpenModalSec(false)
-  },[render])
+  const openModalFC = (type) => {
 
-
-  const openModal = () => seOpenModalSec(true)
+    setModalType(type)
+    setOpenModal(true)
+  
+  }
     
 
   return (
@@ -50,24 +54,34 @@ const [render,setRender] = useState('')
 
       <div className='container'>
         {
-          secS?.map((sec,i)=> <Section 
-                                setRender={setRender} 
-                                key={i} 
-                                sec={sec}
-                                index={i}
-                                />)
+          sectionData?.map((sec,i)=>{
+            
+            return <Section 
+                        key={i} 
+                        sec={sec}
+                        setSectionData={setSectionData}
+                    />
+          })
         }
       </div>
 
-      {openModalSec &&  <Modal setRender={setRender}/>}
+      {openModal &&  
+        <Modal 
+          setSectionData={setSectionData}
+          setOpenModal={setOpenModal}
+          modalType={modalType}
+        />
+      } 
 
-      <button 
-        className='AddSection' 
-        onClick={openModal}
-      >Section</button>
-        
-        
-    
+
+      <div className='buttonDiv'>
+
+        {sectionData[0] &&
+          <button className='AddTaskBtn' onClick={()=>openModalFC('task')}>Task</button>
+        }
+          <button className='AddSectionBtn' onClick={()=>openModalFC('section')}>Section</button>
+
+      </div>
     </div>
   );
 }

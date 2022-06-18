@@ -1,3 +1,4 @@
+
 .section{
     display: flex;
     flex-direction: column;
@@ -9,8 +10,11 @@
     margin: 15px;
     background: linear-gradient(45deg,rgb(233, 233, 75),rgb(54, 217, 228));
     position: relative;
+    animation:0.5s secAnim;
 
 }
+
+
 .container::-webkit-scrollbar,.section::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -27,8 +31,14 @@
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }
+.section p{
+    margin: 0;
+    text-align: center;
+    color: white;
+}
 .secTitle{
     margin: 10px;
+    margin-bottom: 0;
 }
 .secDesc{
     margin: 10px;
@@ -57,7 +67,8 @@
     background: linear-gradient(45deg,rgb(68, 212, 68),rgb(68, 68, 227));
     cursor: pointer;
     border-radius: 8px;
-    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.268);
+    animation: secAnim 0.3s;
+    box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.268);
 
 }
 .addTaskBtn{
@@ -89,4 +100,14 @@
 .deleteTask:hover{
     color: red;
     transform: scale(1.5,1.5);
+}
+
+
+@keyframes secAnim{
+    0%{
+        transform: scale(0,0);
+    }
+    100%{
+        
+    }
 }
