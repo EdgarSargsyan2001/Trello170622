@@ -1,25 +1,8 @@
-import { useEffect, useId, useState } from 'react';
-import './App.css';
+import { useEffect, useState } from 'react';
 import Modal from './components/Modal/Modal';
 import Section from './components/sections/Section';
+import './App.css';
 
-// document.addEventListener("dragstart", function(event) {
-//   event.dataTransfer.setData("Text", event.target.id);
-// });
-
-// document.addEventListener("dragover", function(event) {
-//   event.preventDefault();
-// });
-// document.addEventListener("drop", function(event) {
-//   event.preventDefault();
-
-//   if ( event.target.className === "section") {
-//     let data = event.dataTransfer.getData("Text");
-//     event.target.appendChild(document.getElementById(data));
-//   }
-
-
-// });
 
 function App() {
 
@@ -54,10 +37,10 @@ function App() {
 
       <div className='container'>
         {
-          sectionData?.map((sec,i)=>{
+          sectionData?.map((sec)=>{
             
             return <Section 
-                        key={i} 
+                        key={sec.id} 
                         sec={sec}
                         setSectionData={setSectionData}
                     />
