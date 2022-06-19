@@ -3,7 +3,7 @@
     margin: 10px;
     min-height: 150px;
     position: relative;
-    background: linear-gradient(45deg,rgb(68, 212, 68),rgb(68, 68, 227));
+    background: linear-gradient(45deg,rgb(43, 222, 43),rgb(249, 237, 63));
     cursor: grab;
     border-radius: 8px;
     animation: secAnim 0.3s;

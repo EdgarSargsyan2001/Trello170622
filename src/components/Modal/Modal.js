@@ -1,14 +1,17 @@
 
 import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { addSec ,addTask } from '../../features/section/sectionSlice'
+import {changeTitle,changeDesc} from '../../features/inputs/inputsSlice'
+import {useSelector} from 'react-redux'
 import './Modal.css'
 
-function Modal({setOpenModal,setSectionData,modalType}){
+function Modal({setOpenModal,modalType}){
 
-
+    const dispatch = useDispatch()
+    const {title,desc} = useSelector((state) => state.inputs)
     const idData = localStorage.getItem('id')
     const [id,setId] = useState(idData?JSON.parse(idData) : 1 )
-    const [title,setTitle] = useState('')
-    const [desc,setDesc] = useState('enything')
 
 //===== useEffects ===========================
 
@@ -19,7 +22,7 @@ function Modal({setOpenModal,setSectionData,modalType}){
 
 
 //===== function ====================
-    const AddSecLocalSt = ()=>{
+    const AddSecToStore = ()=>{
 
         const SecId = id + 100
         const secObj = {
@@ -29,12 +32,18 @@ function Modal({setOpenModal,setSectionData,modalType}){
             id:SecId
         }
         setId(prev => prev + 1)
-        setSectionData(prev => [...prev,secObj])
+
+        dispatch(addSec(secObj))
+        dispatch(changeTitle(''))
+        dispatch(changeDesc('anything'))
         setTimeout(()=>setOpenModal(false),0)
+
+
+
     }
 
 
-    const AddTaskLocalSt = ()=>{
+    const AddTaskToStore = ()=>{
 
         const taskObj = {
             title:title ? title : id,
@@ -43,20 +52,17 @@ function Modal({setOpenModal,setSectionData,modalType}){
         }
 
         setId(prev => prev + 1)
-        setSectionData(prev =>  prev.map((sec,i)=>{
-                if(i === 0) return {...sec,tasks:[...sec.tasks,taskObj]}
-                return sec
-            })
 
-        )
+        dispatch(addTask(taskObj))
+        dispatch(changeTitle(''))
+        dispatch(changeDesc('anything'))
         setTimeout(()=>setOpenModal(false),0)
 
     }
 
  
-
     return(
-        <div className="modal">
+        <>
             <span className='modalSpan'></span>
             <span className='modalSpan'></span>
             <span className='modalSpan'></span>
@@ -66,21 +72,21 @@ function Modal({setOpenModal,setSectionData,modalType}){
                     type='text' 
                     className='modalInp'
                     placeholder='title' 
-                    onChange={(e)=>setTitle(e.target.value)} 
+                    onChange={(e)=>dispatch(changeTitle(e.target.value))} 
                 />
 
                 <input
                     type='text' 
                     placeholder='description' 
                     className='modalInp'
-                    onChange={(e)=>setDesc(e.target.value)}
+                    onChange={(e)=>dispatch(changeDesc(e.target.value))} 
                 />
                     
                 <button 
                     className='modalBtn' 
-                    onClick = {modalType ==='task'?AddTaskLocalSt:AddSecLocalSt}
+                    onClick = {modalType ==='task'?AddTaskToStore:AddSecToStore}
                 >Add</button>
-        </div>
+        </>
     )
 
 }

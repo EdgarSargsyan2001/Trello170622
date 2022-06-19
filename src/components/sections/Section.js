@@ -1,14 +1,25 @@
 
-import './Section.css'
-import Tasks from './tasks/Tasks'
 import {useDrop} from 'react-dnd'
+import Tasks from './tasks/Tasks'
+import { useDispatch } from 'react-redux'
+import { closeSec , closeTask ,dragDrop} from '../../features/section/sectionSlice'
 
-function Section({sec,setSectionData}){
+import './Section.css'   
 
+function Section({sec}){
+
+
+    const dispatch =  useDispatch()
     const [{isOver},RefDrop] = useDrop(()=>({
 
         accept:'task',
-        drop:(item)=> DragDrop(item.id,sec.id,item.nowPlaceSec),
+        drop:(item) =>  dispatch(dragDrop({
+                                    taskId:item.id,
+                                    secId:sec.id,
+                                    nowPlaceSec:item.nowPlaceSec
+                                
+                                })),
+
         collect: (monitor)=>({
             isOver:!! monitor.isOver(),
         }),
@@ -23,61 +34,26 @@ function Section({sec,setSectionData}){
 
 //===== function =============================
 
-    const closeSec = (id) =>{
-        setSectionData(prev=>{
-            return prev.filter((sec)=>sec.id !== id)
-        })
-
-    }
-
-    const closeTask = (taskId) =>{
-        setSectionData(prev => prev.map((sec)=>{
-
-               let newTasks = sec.tasks.filter((task)=>task.id !== taskId)
-               return {...sec,tasks:newTasks}
-    
-            })
-        )
-    }
-
-    const DragDrop = (taskId,secId,nowPlaceSec)=>{
-        setSectionData(prev => {
-
-            let dragTask = undefined
-            return prev.map((sec)=>{
-                if(sec.id === nowPlaceSec) {
-
-                    let newTasks = sec.tasks.filter((task)=>{
-                        if(task?.id == taskId) dragTask = task
-                        
-                        return task?.id !== taskId
-                    })
-                    return {...sec,tasks:newTasks}
-                }
-
-                return sec
-            }).map((sec)=>{
-                if(sec?.id === secId && dragTask) return {...sec,tasks:[...sec?.tasks,dragTask]}
-                return sec
-            })
-        })
+    const closeSecFC = (id) => dispatch(closeSec(id))
+        
+    const closeTaskFC = (taskId) =>dispatch(closeTask(taskId))
 
 
-    }
+
 
 
     return(
-        <div className='section' style={isOver?secStyle:{}} ref={RefDrop}>
+        <div className='section' id={sec.id} style={isOver?secStyle:{}} ref={RefDrop}>
 
             <h3 className='secTitle'>Title<p>{sec?.title}</p></h3>
             <h3 className='secDesc'>Description<p>{sec?.desc}</p></h3>
-            <button onClick={()=>closeSec(sec.id)} className='secDeleteBtn'>X</button>
+            <button onClick={()=>closeSecFC(sec.id)} className='secDeleteBtn'>X</button>
             
             {
                 sec.tasks.map((task,i)=><Tasks 
                                             key={task.id} 
                                             task={task} 
-                                            closeTask={closeTask}
+                                            closeTaskFC={closeTaskFC}
                                             nowPlaceSec={sec.id}
                                             />)
             }

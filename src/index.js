@@ -5,14 +5,21 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import  store ,{persistor} from './store/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 
   // <React.StrictMode>
-   <DndProvider backend={HTML5Backend}>
-     <App />
-   </DndProvider>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor} >
+      <DndProvider backend={HTML5Backend}>
+        <App />
+      </DndProvider>
+    </PersistGate>
+   </Provider>
   // </React.StrictMode>
 );
 

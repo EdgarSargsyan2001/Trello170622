@@ -11,6 +11,24 @@
     overflow-x:scroll;
 
 }
+.modal{
+    
+    width: 70vw;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 15vh;
+    /* border-radius: 15px; */
+    box-shadow: 0 0 0 110vw rgba(0, 0, 0, 0.8);
+    background: linear-gradient(45deg,var(--accent-color),var(--base-color));
+    animation:modalAnim 0.5s  ;
+    z-index:4 ;
+    overflow: hidden;
+
+}
 .buttonDiv{
     width: 90vw;
     position:absolute;

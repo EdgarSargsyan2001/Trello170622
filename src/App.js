@@ -1,26 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Modal from './components/Modal/Modal';
 import Section from './components/sections/Section';
+import {useSelector} from 'react-redux'
 import './App.css';
 
 
 function App() {
 
-  
-  const localData = localStorage.getItem('AllObj')
-  const [sectionData,setSectionData] = useState(localData ? JSON.parse(localData) : [] )
   const [openModal,setOpenModal] = useState(false)
   const [modalType,setModalType] = useState('section')
-  
-  
-  //useEffects ==================================
-  
-  useEffect(()=>{
-    localStorage.setItem('AllObj',JSON.stringify(sectionData))
-    
-  },[sectionData])
-  
-
+  const sectionData = useSelector((state) => state.sections)
 
   //function ===================================
 
@@ -35,28 +24,25 @@ function App() {
   return (
     <div className="App">
 
-      <div className='container'>
+      <div className='container' >
         {
           sectionData?.map((sec)=>{
             
             return <Section 
                         key={sec.id} 
                         sec={sec}
-                        setSectionData={setSectionData}
                     />
           })
         }
       </div>
-
-      {openModal &&  
-        <Modal 
-          setSectionData={setSectionData}
-          setOpenModal={setOpenModal}
-          modalType={modalType}
-        />
-      } 
-
-
+        {openModal && <div className="modal">
+            <Modal 
+              setOpenModal={setOpenModal}
+              modalType={modalType}
+            />
+          </div>
+        }
+ 
       <div className='buttonDiv'>
 
         {sectionData[0] &&

@@ -3,9 +3,9 @@ import { useDrag } from 'react-dnd'
 import './Tasks.css'
 
 
-function Tasks({task,closeTask,nowPlaceSec}){
+function Tasks({task,closeTaskFC,nowPlaceSec}){
 
-    const [{isDragging},RefDrag] = useDrag(()=>({
+    const [{isDragging},RefDrag] = useDrag(() => ({
         
         type:"task",
         item:{id:task.id,nowPlaceSec,task},
@@ -14,15 +14,22 @@ function Tasks({task,closeTask,nowPlaceSec}){
         }),
 
     }))
+    
+//===== style ===============================
+    const taskStyle = {
+        'opacity': 0.5,
+        'transform':"scale(0.9,0.9)" 
+    }
+
 
 
     return(
         <div 
-            style={isDragging? {'opacity': 0.5,transform:"scale(0.9,0.9)" }:{}}
+            style={isDragging? taskStyle:{}}
             ref={RefDrag} id={task.id} className='task'
             >
 
-            <button onClick={()=>closeTask(task?.id)} className='deleteTask'>X</button>
+            <button onClick={()=>closeTaskFC(task?.id)} className='deleteTask'>X</button>
             <p>title:{task?.title}</p>
             <p>title:{task?.desc}</p>
 
