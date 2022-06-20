@@ -4,8 +4,8 @@ import { useDispatch } from 'react-redux'
 import { addSec ,addTask } from '../../features/section/sectionSlice'
 import {changeTitle,changeDesc} from '../../features/inputs/inputsSlice'
 import {useSelector} from 'react-redux'
-import { changeId } from '../../features/uniqueId/uniqueIdSlice'
 import './Modal.css'
+import { changeId } from '../../features/uniqueId/uniqueIdSlice'
 
 function Modal({setOpenModal,modalType}){
 

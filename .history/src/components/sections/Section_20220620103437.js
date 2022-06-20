@@ -21,7 +21,7 @@ function Section({sec}){
                                 })),
 
         collect: (monitor)=>({
-            isOver:!! monitor.isOver(),
+            isOver:!! monitor.
         }),
     }))
 

@@ -3,8 +3,8 @@ import {useDrop} from 'react-dnd'
 import { useDispatch } from 'react-redux'
 import { closeSec , closeTask ,dragDrop} from '../../features/section/sectionSlice'
 import Tasks from './tasks/Tasks'
-import './Section.css'   
 
+import './Section.css'   
 
 function Section({sec}){
 

@@ -13,13 +13,12 @@ import {
 import storage from 'redux-persist/lib/storage'
 import inputsSlece from '../features/inputs/inputsSlice'
 import sectionSlice from '../features/section/sectionSlice.js'
-import uniqueIdSlice from "../features/uniqueId/uniqueIdSlice";
 
 
 const rootReducer = combineReducers({
     sections:sectionSlice,
     inputs:inputsSlece,
-    uniqueId:uniqueIdSlice
+    uniqueIdSlice
 })
 
 

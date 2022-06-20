@@ -4,8 +4,8 @@ import { useDispatch } from 'react-redux'
 import { addSec ,addTask } from '../../features/section/sectionSlice'
 import {changeTitle,changeDesc} from '../../features/inputs/inputsSlice'
 import {useSelector} from 'react-redux'
-import { changeId } from '../../features/uniqueId/uniqueIdSlice'
 import './Modal.css'
+import { changeId } from '../../features/uniqueId/uniqueIdSlice'
 
 function Modal({setOpenModal,modalType}){
 
@@ -26,10 +26,10 @@ function Modal({setOpenModal,modalType}){
 
         const SecId = id + 100
         const secObj = {
-            id:SecId,
             title:title? title : SecId,
             desc,
-            tasks:[]
+            tasks:[],
+            id:SecId
         }
         
         dispatch(changeId(id))
@@ -37,6 +37,8 @@ function Modal({setOpenModal,modalType}){
         dispatch(changeTitle(''))
         dispatch(changeDesc('anything'))
         setOpenModal(false)
+
+
 
     }
 
@@ -53,7 +55,7 @@ function Modal({setOpenModal,modalType}){
         dispatch(addTask(taskObj))
         dispatch(changeTitle(''))
         dispatch(changeDesc('anything'))
-        setOpenModal(false)
+        setTimeout(()=>setOpenModal(false),0)
 
     }
 
