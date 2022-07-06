@@ -1,0 +1,209 @@
+:root{
+    --accent-color:rgb(239, 246, 27);
+    --base-color:rgb(9, 218, 255);
+    --border-size:10px;
+    --border-raduse:10px;
+    --animTime:1s
+
+}
+
+.modal:hover .modalSpan{
+    animation-play-state: running;
+}
+
+.modal{
+    width: 70vw;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    /* bottom: 15vh; */
+    /* border-radius: 15px; */
+    background: linear-gradient(45deg,var(--accent-color),var(--base-color));
+    animation:modalAnim 0.5s  ;
+    z-index:4 ;
+    overflow: hidden;
+
+}
+.modal .modalInp{
+    font-size: 20px;
+    border-radius: 15px;
+    padding: 15px 20px;
+    outline: none;
+    margin: 5px;
+}
+
+.modal .modalBtn{
+    cursor: pointer;
+    padding: 15px 120px;
+    font-size: 24px;
+    border-radius: 15px;
+    background: transparent;
+    color: white;
+    border:2px solid white;
+    margin-top: 10px;
+    transition: 0.2s;
+}
+.modal .modalBtn:hover{
+    transform: scale(1.1,1.1);
+    color: rgb(6, 97, 255);
+    border:2px solid rgb(6, 97, 255);
+    letter-spacing: 2px;
+    text-shadow: 0px 0px 15px white;
+
+}
+
+
+.modalSpan{
+    position:absolute;
+
+}
+.modalSpan:nth-child(1){
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-radius: var(--border-raduse);
+    height: var(--border-size);
+    background: linear-gradient(90deg,var(--base-color),var(--accent-color),var(--base-color));
+    animation: animateTop var(--animTime) linear infinite paused;
+
+}
+.modalSpan:nth-child(2){
+    top: 0;
+    right: 0;
+    width: var(--border-size);
+    border-radius: var(--border-raduse);
+    height: 100%;
+    background: linear-gradient(0,var(--base-color),var(--accent-color),var(--base-color));
+    animation: animateRight var(--animTime) linear infinite paused;
+
+}
+.modalSpan:nth-child(3){
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: var(--border-size);
+    border-radius: var(--border-raduse);
+    background: linear-gradient(90deg,var(--base-color),var(--accent-color),var(--base-color));
+    animation: animateBottom var(--animTime) linear infinite paused;
+
+}
+.modalSpan:nth-child(4){
+    top: 0;
+    left: 0;
+    width: var(--border-size);
+    border-radius: var(--border-raduse);
+    height: 100%;
+    background: linear-gradient(0,var(--base-color),var(--accent-color),var(--base-color));
+    animation: animateLeft var(--animTime) linear infinite paused;
+
+}
+
+@keyframes modalAnim {
+    0%{
+        transform: scale(0,0);
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+    
+}
+
+
+@keyframes animateTop {
+    0%{
+        transform: translateX(-100%);
+
+    }
+    100%{
+        transform: translateX(100%);
+    }
+    
+}
+@keyframes animateRight {
+    0%{
+        transform: translateY(-100%);
+
+    }
+    100%{
+        transform: translateY(100%);
+    }
+    
+}
+@keyframes animateBottom {
+    0%{
+        transform: translateX(100%);
+
+    }
+    100%{
+        transform: translateX(-100%);
+    }
+    
+}
+@keyframes animateLeft {
+    0%{
+        transform: translateY(100%);
+
+    }
+    100%{
+        transform: translateY(-100%);
+    }
+    
+}
+
+
+
+
+.select-selected {
+    background-color: DodgerBlue;
+  }
+  
+  /*style the arrow inside the select element:*/
+  .select-selected:after {
+    position: absolute;
+    content: "";
+    top: 14px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-color: #fff transparent transparent transparent;
+  }
+  
+  /*point the arrow upwards when the select box is open (active):*/
+  .select-selected.select-arrow-active:after {
+    border-color: transparent transparent #fff transparent;
+    top: 7px;
+  }
+  
+  /*style the items (options), including the selected item:*/
+  .select-items div,.select-selected {
+    color: #ffffff;
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  /*style items (options):*/
+  .select-items {
+    position: absolute;
+    background-color: DodgerBlue;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+  }
+  
+  /*hide the items when the select box is closed:*/
+  .select-hide {
+    display: none;
+  }
+  
+  .select-items div:hover, .same-as-selected {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
