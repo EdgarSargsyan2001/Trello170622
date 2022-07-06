@@ -32,29 +32,23 @@ const dragDropFC = (
 
 const editTaskFC = (
   state: Array<SecObj>,
-  idTask: string,
-  nowPlaceSec: string,
   title: string,
   desc: string,
   color1: string,
   color2: string,
-): any => {
+  idTask: string,
+  nowPlaceSec: string,
+) => {
   return state.map((sec) => {
     if (sec.id === nowPlaceSec) {
-      let newTasks = sec.tasks.map((task) => {
+      return sec.tasks.map((task) => {
         if (task.id === idTask) {
           return {
-            ...task,
-            title,
-            desc,
-            color1,
-            color2,
-          };
+              
+            }
         }
-        return task;
+        return task
       });
-
-      return { ...sec, tasks: newTasks };
     }
     return sec;
   });
@@ -98,21 +92,18 @@ export const sectionSlice = createSlice({
       });
     },
     editTask: (state, action) => {
-      const { idTask, idSec, nowPlaceSec, title, desc, color1, color2 } =
-        action.payload;
-      let newState = editTaskFC(
-        state,
-        idTask,
-        nowPlaceSec,
-        title,
-        desc,
-        color1,
-        color2,
-      );
-      if (idSec !== nowPlaceSec) {
-        return dragDropFC(newState, idTask, idSec, nowPlaceSec);
-      }
-      return newState
+      // const { idTask, idSec, nowPlaceSec, title, desc, color1, color2 } =
+      //   action.payload;
+      // return dragDropFC(
+      //   state,
+      //   idTask,
+      //   idSec,
+      //   nowPlaceSec,
+      //   title,
+      //   desc,
+      //   color1,
+      //   color2,
+      // );
     },
 
     dragDrop: (state, action) => {

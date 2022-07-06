@@ -98,21 +98,21 @@ export const sectionSlice = createSlice({
       });
     },
     editTask: (state, action) => {
-      const { idTask, idSec, nowPlaceSec, title, desc, color1, color2 } =
+      const { idTask, secId, nowPlaceSec, title, desc, color1, color2 } =
         action.payload;
-      let newState = editTaskFC(
-        state,
-        idTask,
-        nowPlaceSec,
-        title,
-        desc,
-        color1,
-        color2,
-      );
-      if (idSec !== nowPlaceSec) {
-        return dragDropFC(newState, idTask, idSec, nowPlaceSec);
+        console.log(secId === nowPlaceSec)
+      if (secId === nowPlaceSec) {
+        return editTaskFC(
+          state,
+          idTask,
+          nowPlaceSec,
+          title,
+          desc,
+          color1,
+          color2,
+        );
       }
-      return newState
+      return state
     },
 
     dragDrop: (state, action) => {

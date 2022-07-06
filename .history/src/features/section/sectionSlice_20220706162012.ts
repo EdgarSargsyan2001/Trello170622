@@ -112,7 +112,15 @@ export const sectionSlice = createSlice({
       if (idSec !== nowPlaceSec) {
         return dragDropFC(newState, idTask, idSec, nowPlaceSec);
       }
-      return newState
+      return editTaskFC(
+        state,
+        idTask,
+        nowPlaceSec,
+        title,
+        desc,
+        color1,
+        color2,
+      );
     },
 
     dragDrop: (state, action) => {
